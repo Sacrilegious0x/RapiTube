@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Video</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <div class="video-upload-container">
+        <h2>Subir Video</h2>
+        <form action="/uploadVideo" method="post" enctype="multipart/form-data">
+            <label for="video">Archivo de Video:</label>
+            <input type="file" id="video" name="video" accept="video/*" required>
+            
+            <label for="titulo">Título del Video:</label>
+            <input type="text" id="titulo" name="titulo" required>
+            <label for="description">Descripcion del Video:</label>
+            <input type="text" id="description" name="description" required>
+            <button type="submit">Subir Video</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Anuncio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="ad-upload-container">
+        <h2>Subir Anuncio</h2>
+        <form id="uploadAdForm" action="/submitAd" method="POST">
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" name="marca" required placeholder="Ingresa la marca del anuncio">
+            
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="5" required placeholder="Ingresa la descripción del anuncio"></textarea>
+            
+            <button type="submit">Subir Anuncio</button>
+        </form>
+    </div>
+</body>
+</html>

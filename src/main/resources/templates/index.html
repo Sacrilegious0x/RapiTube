@@ -1,0 +1,76 @@
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RapiTube</title>
+        <link rel="icon" type="image/png" href="/RapiTube.png" />
+        <link rel="stylesheet" th:href="@{/styles.css}">
+    </head>
+    <body>
+        <!-- Barra de navegación superior -->
+        <header class="top-bar">
+            <div class="logo-section">
+
+                <!-- Enlace al index en el logo y el título -->
+                <a th:href="@{/}">
+                    <img src="/RapiTube.png" alt="RapiTube Logo" class="logo"> <!-- Logo con enlace -->    
+                </a>
+                <h1>RapiTube</h1> <!-- Título principal con enlace -->
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar videos...">
+                <button id=searchButton"">🔍</button>
+            </div>
+            <div class="user-options">
+                <a href="#">Suscripciones</a>
+                <a th:href="@{/profile}">Perfil</a>
+                <a href="#">Historial</a>
+                <a th:href="@{/userSettings}">Configuraciones</a>
+            </div>
+        </header>
+
+        <section id="videos-destacados">
+            <h2>Videos Destacados</h2>
+
+            <!-- Barra de pestañas para seleccionar el criterio de videos -->
+            <div class="tabs">
+                <a th:href="@{/}" th:classappend="${filter == null} ? 'active' : ''">Todos</a>
+                <a th:href="@{/?filter=mostViewed}" th:classappend="${filter == 'mostViewed'} ? 'active' : ''">Más Vistos</a>
+                <a th:href="@{/?filter=mostLiked}" th:classappend="${filter == 'mostLiked'} ? 'active' : ''">Más Likes</a>
+                <a th:href="@{/?filter=recent}" th:classappend="${filter == 'recent'} ? 'active' : ''">Más Recientes</a>
+            </div>
+
+
+            <div class="videos-grid" th:if="${!videos.isEmpty()}">
+                <!-- Para cada video, crea un enlace hacia la página de detalles -->
+                <div th:each="video : ${videos}" class="video-card">
+
+                    <video width="320" height="240" controls>
+                        <source th:src="@{/VideosRP/{videoFile}(videoFile=${video.videoFile})}" type="video/mp4">
+                        Tu navegador no soporta el elemento de video.
+                    </video>
+                    <div class="video-info">
+                        <a th:href="@{/video/{id}(id=${video.id})}">
+                            <h3 th:text="${video.title}">Título del video</h3>
+                        </a>
+                        <p th:text="${video.description}">Descripción del video</p>
+                        <p>Subido por: <span th:text="${video.user.userName}">Nombre del usuario</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <footer>
+            <p>© 2024 RapiTube</p>
+        </footer>
+
+        <script src="scripts.js"></script>
+    </body>
+</html>

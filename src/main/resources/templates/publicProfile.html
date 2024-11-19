@@ -1,0 +1,45 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Perfil de Usuario</title>
+        <link rel="stylesheet" th:href="@{/styles.css}">
+    </head>
+    <body>
+        <div class="public-profile-container">
+
+            <!-- Contenedor principal del perfil -->
+            <div class="profile-card">
+                
+                <!-- Foto de perfil -->
+                <div class="public-profile-photo">
+                    <img id = "fotoPublica" th:src="${profileImageUrl}" alt="Foto de perfil">
+                </div>
+
+                <!-- Información del usuario -->
+                <div class="user-info">
+                    <h2 th:text="${user.userName}">Nombre de Usuario</h2>
+                    <p>Cantidad de suscriptores: <span th:text="${suscriptores}">0</span></p>
+                    <p>Fecha de registro: <span th:text="${user.entryDate}">Fecha de Registro</span></p>
+                    
+                    <!-- Estado de suscripción -->
+                    <p class="subscribe-status" th:if="${isSubscribed}">
+                        <span>Ya estás suscrito</span>
+                    </p>
+                </div>
+
+                <!-- Botón para suscribirse -->
+                <form th:if="${!isSubscribed}" th:action="@{/subscribeToUser/{id}(id=${user.id})}" method="post">
+                    <button type="submit" class="subscribe-button">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+
+

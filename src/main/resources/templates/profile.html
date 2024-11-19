@@ -1,0 +1,104 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Perfil de Usuario</title>
+        <link rel="stylesheet" th:href="@{/styles.css}">
+    </head>
+
+
+    <body>
+        <header class="top-bar">
+            <div class="logo-section">
+                <!-- Enlace al index en el logo y el título -->
+                <a th:href="@{/}">
+                    <img src="/RapiTube.png" alt="RapiTube Logo" class="logo"> <!-- Logo con enlace -->      
+                </a>
+                <h1>RapiTube</h1> <!-- Título principal con enlace -->
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar videos...">
+                <button id=searchButton"">🔍</button>
+            </div>
+            <div class="user-options">
+                <a href="#">Suscripciones</a>
+                <a th:href="@{/profile}">Perfil</a>
+                <a href="#">Historial</a>
+                <a th:href="@{/userSettings}">Configuraciones</a>
+            </div>
+        </header>
+        <div id="profile-container">
+            <!-- Mostrar mensaje si está presente -->
+            <div th:if="${message}" class="alert alert-success">
+                <p th:text="${message}"></p>
+            </div>
+            <h1 >Perfil de Usuario</h1>
+
+            <div th:if="${user == null}">
+                <h3>No has iniciado sesión. <a th:href="@{/userLogin}">Inicia sesión aquí</a> para acceder a tu perfil.</h3>
+            </div>
+
+            <div th:if="${user != null}">
+                <div class="profile-header">
+                    <!-- Foto de perfil -->
+                    <div class="profile-photo">
+                        <img th:src="${profileImageUrl}" alt="Foto de perfil">
+
+                    </div>
+
+                    <!-- Información del usuario -->
+                    <div class="user-info">
+                        <h2 th:text="${user.userName}">Nombre de Usuario</h2>
+                        <p class="entry-date">Fecha de Registro: <span th:text="${user.entryDate}"></span></p>
+                        <p class="description" th:text="${description}">Aquí va la descripción del usuario...</p>
+                        <p class="suscriptores"><span th:text="'Cantidad suscriptores:  ' + ${suscriptores}"></span></p>
+                        <p class="premium-status" th:if="${esPremium}">
+                            <span>Usuario Premium</span>
+                        </p>
+                        <!-- Botones para Premium y Subir Video -->
+                        <div>
+                            <!-- Botón Convertirse en Premium -->
+                            <form th:if="${!isPremium}" th:action="@{/convertToPremium}" method="post" style="display: inline;">
+                                <button type="submit" class="premium-button">Hazte Premium</button>
+                            </form>
+
+                            <!-- Botón Subir Video -->
+                            <a href="/uploadVideo">
+                                <button type="button" class="upload-button">Subir Video</button>
+                            </a>
+
+                        </div>
+                    </div>
+                    <!-- Anuncio -->
+                    <div th:if="${ad != null}" class="anuncio">
+                        <h3>Anuncio patrocinado</h3>
+                        <div class="anuncio-contenido">
+                            <h4 th:text="${ad.brand}">Marca del Anuncio</h4>
+                            <p th:text="${ad.description}">Descripción del Anuncio</p>
+                        </div>
+                    </div>
+
+                    <!-- Carrete de videos -->
+                    <div class="user-videos">
+                        <h3>Videos Subidos</h3>
+                        <div class="video-carousel">
+                            <div th:each="video : ${videos}" class="video-item">
+                                <video th:src="${'/VideosRP/' + video.videoFile}" controls width="320" height="180"></video>
+                                <div class="videoUser-info">
+                                    <p th:text="${video.title}">Título del video</p>
+                                    <p th:text="'Duración: ' + ${video.minutes} + ' min ' + ${video.seconds} + ' sec'">Duración</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p th:if="${videos.empty}">Aún no has subido ningún video.</p>
+                    </div>
+                </div>
+            </div>
+    </body>
+</html>
+

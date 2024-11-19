@@ -1,0 +1,35 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agregar Tags al Video</title>
+        <link rel="stylesheet" th:href="@{/styles.css}">
+    </head>
+    <body>
+        <div class="add-tags-container">
+            <h2>Agregar Tags al Video: <span th:text="${titulo}"></span></h2>
+
+            <form action="/saveTags" method="post">
+                <input type="hidden" name="titulo" th:value="${titulo}">
+
+                <!-- Campo de selección obligatorio para tags predefinidos -->
+                <label for="predefinedTags">Selecciona un Tag predefinido:</label>
+                <select id="predefinedTags" name="predefinedTag" required>
+                    <option value="" disabled selected>Selecciona un tag...</option>
+                    <option th:each="tag : ${predefinedTags}" th:value="${tag}" th:text="${tag}"></option>
+                </select>
+
+                <label for="tags">Tags adicionales (separados por comas):</label>
+                <input type="text" id="tags" name="tags" placeholder="Ej: tag1, tag2, tag3">
+
+                <button type="submit">Guardar Tags</button>
+            </form>
+        </div>
+    </body>
+</html>
+
