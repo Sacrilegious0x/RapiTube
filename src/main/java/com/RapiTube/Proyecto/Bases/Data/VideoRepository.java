@@ -8,6 +8,7 @@ import com.RapiTube.Proyecto.Bases.Domain.Video;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -41,5 +42,16 @@ public interface VideoRepository extends JpaRepository<Video, Integer> {
     @Query(value = "SELECT * FROM VIDEO ORDER BY FECHA_SUBIDO DESC", nativeQuery = true)
     List<Video> findMostRecentVideos();
     
-    
+    @Query(value = """
+        SELECT v.* 
+        FROM VIDEO v
+        JOIN (
+            SELECT ID_VIDEO, MAX(FECHA_VISUALIZACION) AS FECHA_MAS_RECIENTE
+            FROM VISUALIZACION
+            WHERE ID_USUARIO = :userId
+            GROUP BY ID_VIDEO
+        ) vis ON v.ID_VIDEO = vis.ID_VIDEO
+        ORDER BY vis.FECHA_MAS_RECIENTE DESC
+        """, nativeQuery = true)
+    List<Video> findWatchedVideosByUserId(@Param("userId") int userId);
 }

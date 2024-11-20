@@ -9,15 +9,21 @@ import com.RapiTube.Proyecto.Bases.Data.ProfileRepository;
 import com.RapiTube.Proyecto.Bases.Data.RegularUserRepository;
 import com.RapiTube.Proyecto.Bases.Data.SubscribedRepository;
 import com.RapiTube.Proyecto.Bases.Data.UserRepository;
+import com.RapiTube.Proyecto.Bases.Data.VideoRepository;
 import com.RapiTube.Proyecto.Bases.Domain.PremiumUser;
 import com.RapiTube.Proyecto.Bases.Domain.Profile;
 import com.RapiTube.Proyecto.Bases.Domain.RegularUser;
 import com.RapiTube.Proyecto.Bases.Domain.Subscribed;
 import com.RapiTube.Proyecto.Bases.Domain.SubscribedId;
 import com.RapiTube.Proyecto.Bases.Domain.User;
+import com.RapiTube.Proyecto.Bases.Domain.Video;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +56,10 @@ public class UserService {
     
     @Autowired
     private SubscribedRepository subscribedRepository;
-
+    
+    @Autowired
+    private VideoRepository videoRepository;
+    
     private final String imageUploadDir = "C:/FotosPerfilRP/";
 
     public Optional<User> findByUserName(String userName) {
@@ -141,6 +150,14 @@ public class UserService {
             suscrito.setFollow(targetUser);
             subscribedRepository.save(suscrito);
         }
+    }
+    
+    public List<User> getFollowingUsers(int userId) {
+        return subscribedRepository.findFollowingByUserId(userId);
+    }
+
+    public void removeSubscription(int id, int followedUserId) {
+        subscribedRepository.deleteByUserIdAndFollowedUserId(id, followedUserId);
     }
 
 }

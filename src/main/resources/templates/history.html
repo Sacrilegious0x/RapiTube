@@ -1,0 +1,67 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Videos Vistos</title>
+    <link rel="icon" type="image/png" href="/RapiTube.png" />
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <!-- Barra de navegación superior -->
+    <header class="top-bar">
+        <div class="logo-section">
+            <a th:href="@{/}">
+                <img src="/RapiTube.png" alt="RapiTube Logo" class="logo">
+            </a>
+            <h1>RapiTube</h1>
+        </div>
+        <div class="user-options">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/subscriptions}">Suscripciones</a>
+            <a th:href="@{/profile}">Perfil</a>
+            <a href="@{/history}">Historial</a>
+            <a th:href="@{/userSettings}">Configuraciones</a>
+        </div>
+    </header>
+
+    <!-- Contenedor principal del historial -->
+    <main class="history-container">
+        <h2>Historial de Videos Vistos</h2>
+        
+        <!-- Contenedor para el historial de videos -->
+        <div class="videos-history">
+            <!-- Verifica si hay videos en el historial -->
+            <div th:if="${!watchedVideos.isEmpty() and watchedVideos!=null}">
+                <div th:each="video : ${watchedVideos}" class="history-video-item">
+                    <!-- Tarjeta de video en historial -->
+                    <div class="video-thumbnail">
+                        <a th:href="@{/video/{id}(id=${video.id})}">
+                           <video th:src="${'/VideosRP/' + video.videoFile}" controls width="320" height="180"></video>
+                        </a>
+                    </div>
+                    <div class="history-video-info">
+                        <h3 th:text="${video.title}">Título del video</h3>
+                        <p>Subido el: <span th:text="${#temporals.format(video.uploadDate, 'dd/MM/yyyy')}"></span></p>
+                        <p>Duración: <span th:text="${video.minutes} + ' min ' + ${video.seconds} + ' sec'">Duración</span></p>
+                        <a th:href="@{/video/{id}(id=${video.id})}">Ver otra vez</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mensaje si el historial está vacío -->
+            <p th:if="${watchedVideos.isEmpty() or watchedVideos==null}">Aún no has visto ningún video.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 RapiTube</p>
+    </footer>
+</body>
+</html>
+

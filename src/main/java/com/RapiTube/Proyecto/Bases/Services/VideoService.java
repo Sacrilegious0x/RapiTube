@@ -228,5 +228,9 @@ public class VideoService {
         videoRepository.save(video);
         return video.getDislikes();
     }
+    
+    public List<Video> getHistory(int idUser){
+        return videoRepository.findWatchedVideosByUserId(idUser);
+    }
 
 }

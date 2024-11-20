@@ -1,0 +1,37 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios que sigues</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <div class="following-container">
+        <h2>Usuarios que sigues</h2>
+
+        <div th:each="profile : ${followingProfiles}" class="following-profile">
+            <!-- Perfil de usuario seguido -->
+            <div class="profile-card">
+                <div class="profile-photo">
+                    <img th:src="${'/FotosPerfilRP/'+profile.photo}" alt="Foto de perfil">
+                </div>
+                <div class="user-info">
+                    <h3 th:text="${profile.user.userName}">Nombre de Usuario</h3>
+                    <p>Fecha de registro: <span th:text="${profile.user.entryDate}"></span></p>
+                    <p th:if="${profile.description}" class="description" th:text="${profile.description}"></p>
+                </div>
+                
+                <!-- Botón de eliminar suscripción -->
+                <form th:action="@{/unsubscribe/{id}(id=${profile.user.id})}" method="post" class="unsubscribe-form">
+                    <button type="submit" class="unsubscribe-button">Eliminar suscripción</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
