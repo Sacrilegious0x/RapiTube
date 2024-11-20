@@ -15,5 +15,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ViewRepository extends JpaRepository<View, ViewId>{
-     
+     void deleteById_IdVideo(int videoId);
 }

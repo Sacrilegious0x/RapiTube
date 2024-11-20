@@ -1,0 +1,35 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Videos</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <div class="delete-video-container">
+        <h2>Mis Videos</h2>
+
+        <div th:each="video : ${userVideos}" class="delete-video-card">
+            <video th:src="${'/VideosRP/' + video.videoFile}" controls width="320" height="180"></video>
+            <!-- Información del video -->
+            <div class="delete-video-info">
+                <h3 th:text="${video.title}">Título del Video</h3>
+                <p>Duración: <span th:text="${video.minutes}"></span> minutos <span th:text="${video.seconds}"></span> segundos</p>
+                <p th:if="${video.description}" class="delete-description" th:text="${video.description}"></p>
+                <p>Likes: <span th:text="${video.likes}"></span> | Dislikes: <span th:text="${video.dislikes}"></span></p>
+            </div>
+            
+            <!-- Botón de eliminar video -->
+            <form th:action="@{/deleteVideo/{id}(id=${video.id})}" method="post" class="delete-video-form">
+                <button type="submit" class="delete-button">Eliminar Video</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

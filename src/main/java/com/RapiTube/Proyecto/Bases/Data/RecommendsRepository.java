@@ -22,4 +22,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface RecommendsRepository extends JpaRepository<Recommend, RecommendId> {
     @Query("SELECT r.id.idVideoRecomendado FROM Recommend r WHERE r.id.idVideo = :videoId")
     List<Integer> findRecommendedVideoIds(int videoId);
+    void deleteById_IdVideo(int videoId);
 }

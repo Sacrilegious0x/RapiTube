@@ -44,4 +44,8 @@ public class ProfileService {
 
         return profiles;
     }
+
+    public void updateProfile(Profile profile) {
+       profileRepository.save(profile);
+    }
 }

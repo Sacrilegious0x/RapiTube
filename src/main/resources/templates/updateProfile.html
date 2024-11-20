@@ -1,0 +1,30 @@
+
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar Perfil</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+    <div class="update-profile-container">
+        <h2>Actualizar Perfil</h2>
+        <form th:action="@{/updateProfile}" th:object="${profile}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="photo">URL de Foto de Perfil:</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea id="description" th:field="*{description}" placeholder="Escribe una descripción"></textarea>
+            </div>
+            <button type="submit" class="button">Guardar Cambios</button>
+        </form>
+        <a th:href="@{/userSettings}" class="button">Cancelar</a>
+    </div>
+</body>
+</html>

@@ -13,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author User
  */
 public interface TagRepository extends JpaRepository<Tag, TagId> {
-    
+    void deleteById_IdVideo(int videoId);
 }

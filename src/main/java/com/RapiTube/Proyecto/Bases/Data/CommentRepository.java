@@ -18,5 +18,5 @@ import org.springframework.stereotype.Repository;
 public interface CommentRepository extends JpaRepository<Comment, CommentId>{
     
     List<Comment> findByVideoIdOrderByCommentDateDesc(int videoId);
- 
+    void deleteByCommentId_IdVideo(int videoId);
 }

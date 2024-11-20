@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ws.schild.jave.MultimediaInfo;
 import ws.schild.jave.MultimediaObject;
@@ -231,6 +232,11 @@ public class VideoService {
     
     public List<Video> getHistory(int idUser){
         return videoRepository.findWatchedVideosByUserId(idUser);
+    }
+    
+    @Transactional
+    public void deleteVideoById(int videoId) {
+        videoRepository.deleteById(videoId);
     }
 
 }
