@@ -17,7 +17,7 @@ import lombok.Data;
  * @author User
  */
 @Entity
-@Table(name = "ANUNCIO")
+@Table(name = "ANUNCIO", schema = "dbo")
 @Data
 public class Advertisement {
     @Id
@@ -25,9 +25,9 @@ public class Advertisement {
     @Column(name = "ID_ANUNCIO")
     private int idAdv;
     
-    @Column(name = "MARCA")
+    @Column(name = "MARCA", length =30)
     private String brand;
     
-    @Column(name ="DESCRIPCION")
+    @Column(name ="DESCRIPCION", length = 250)
     private String description;
 }
