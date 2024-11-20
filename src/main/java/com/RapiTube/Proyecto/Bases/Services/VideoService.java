@@ -110,7 +110,7 @@ public class VideoService {
                 video.setVideoFile(videoFileName); // Guardar solo el nombre del archivo en la base de datos
                 video.setMinutes(duration[0]);
                 video.setSeconds(duration[1]);
-
+                
                 videoRepository.save(video);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -127,10 +127,11 @@ public class VideoService {
 
             int minutes = (int) (durationInMilliseconds / 60000);
             int seconds = (int) ((durationInMilliseconds % 60000) / 1000);
-
+            System.out.println("Video duration: " + minutes + " minutes, " + seconds + " seconds"); 
             return new int[]{minutes, seconds};
         } catch (Exception e) {
             e.printStackTrace();
+            System.err.println("DEVOLVIO 0");
             return new int[]{0, 0};
         }
     }
