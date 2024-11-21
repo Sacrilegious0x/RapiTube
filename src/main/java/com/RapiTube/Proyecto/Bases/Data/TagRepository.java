@@ -7,11 +7,18 @@ package com.RapiTube.Proyecto.Bases.Data;
 import com.RapiTube.Proyecto.Bases.Domain.Tag;
 import com.RapiTube.Proyecto.Bases.Domain.TagId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author User
  */
 public interface TagRepository extends JpaRepository<Tag, TagId> {
-    void deleteById_IdVideo(int videoId);
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Tag t WHERE t.id.idVideo = :videoId")
+    void deleteByVideoId(@Param("videoId") int videoId);
 }

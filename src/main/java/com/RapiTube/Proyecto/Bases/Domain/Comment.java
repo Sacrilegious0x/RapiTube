@@ -21,10 +21,10 @@ import lombok.Data;
  * @author User
  */
 @Entity
-@Table (name = "COMENTARIO")
+@Table (name = "COMENTARIO", schema = "dbo")
 @Data
 public class Comment {
-     @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Generado automáticamente por la base de datos
     @Column(name = "ID_COMENTARIO")
     private int idComment;

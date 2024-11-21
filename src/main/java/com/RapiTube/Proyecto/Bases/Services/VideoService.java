@@ -237,6 +237,12 @@ public class VideoService {
     
     @Transactional
     public void deleteVideoById(int videoId) {
+        // Elimina las relaciones en otras tablas primero
+        tagRepository.deleteByVideoId(videoId);
+        viewRepository.deleteByVideoId(videoId);
+        recommendRepository.deleteByVideoId(videoId);
+        recommendRepository.deleteByVideoRecomendadoId(videoId);
+        commentRepository.deleteByVideoId(videoId);
         videoRepository.deleteById(videoId);
     }
 

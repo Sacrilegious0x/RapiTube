@@ -22,5 +22,16 @@ import org.springframework.transaction.annotation.Transactional;
 public interface RecommendsRepository extends JpaRepository<Recommend, RecommendId> {
     @Query("SELECT r.id.idVideoRecomendado FROM Recommend r WHERE r.id.idVideo = :videoId")
     List<Integer> findRecommendedVideoIds(int videoId);
-    void deleteById_IdVideo(int videoId);
+    
+    // Elimina todas las recomendaciones asociadas con un video
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Recommend r WHERE r.id.idVideo = :videoId OR r.id.idVideoRecomendado = :videoId")
+    void deleteByVideoId(@Param("videoId") int videoId);
+
+    // Elimina recomendaciones donde el video es recomendado por otro
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Recommend r WHERE r.id.idVideoRecomendado = :videoId")
+    void deleteByVideoRecomendadoId(@Param("videoId") int videoId);;
 }
