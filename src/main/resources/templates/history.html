@@ -48,7 +48,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="history-video-info">
                         <h3 th:text="${video.title}">Título del video</h3>
                         <p>Subido el: <span th:text="${#temporals.format(video.uploadDate, 'dd/MM/yyyy')}"></span></p>
-                        <p>Duración: <span th:text="${video.minutes} + ' min ' + ${video.seconds} + ' sec'">Duración</span></p>
+                        <!---<p>Duración: <span th:text="${video.minutes} + ' min ' + ${video.seconds} + ' sec'">Duración</span></p>-->
                         <a th:href="@{/video/{id}(id=${video.id})}">Ver otra vez</a>
                     </div>
                 </div>

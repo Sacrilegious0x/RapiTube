@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <!-- Información del video -->
             <div class="delete-video-info">
                 <h3 th:text="${video.title}">Título del Video</h3>
-                <p>Duración: <span th:text="${video.minutes}"></span> minutos <span th:text="${video.seconds}"></span> segundos</p>
+                 <!--<p>Duración: <span th:text="${video.minutes}"></span> minutos <span th:text="${video.seconds}"></span> segundos</p>-->
                 <p th:if="${video.description}" class="delete-description" th:text="${video.description}"></p>
                 <p>Likes: <span th:text="${video.likes}"></span> | Dislikes: <span th:text="${video.dislikes}"></span></p>
             </div>
